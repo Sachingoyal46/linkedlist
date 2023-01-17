@@ -154,47 +154,69 @@ int Traversal(struct node *start)
     }
 }
 //********************************************************************************
-struct node *concatination(struct node *l1,struct node *l2)
-{
-    struct node *p;
+
+struct node *merge(struct node *l1,struct node *l2)
+{   
+    struct node *p,*q,*l3;
     p=l1;
-    if(l1!=NULL)
+    q=l2;
+    l3=NULL;
+
+    while(p!=NULL && q!=NULL)
     {
-        while(p->next!=NULL)
+        if(p->info>q->info)
         {
+            ins_end(&l3,q->info);
+            q=q->next;
+        }
+        else
+        {
+            ins_end(&l3,p->info);
             p=p->next;
         }
-        p->next=l2;
-        return l1;
     }
-    else
-    return l2;
+        while(p!=NULL)
+        {
+            ins_end(&l3,p->info);
+            p=p->next;
+        }
+        while(q!=NULL)
+        {
+            ins_end(&l3,q->info);
+            q=q->next;
+        }
+        return l3;
 
 }
+
+
 int main()
 {
-
     struct node *start1,*start2,*start3;
     start1=NULL;
     start2=NULL;
     start3=NULL;
-
-    ins_end(&start1,100);
-    ins_end(&start1,200);
-    ins_end(&start1,300);
-    ins_end(&start1,400);
-    ins_end(&start1,500);
+    ins_end(&start1,10);
+    ins_end(&start1,20);
+    ins_end(&start1,40);
+    ins_end(&start1,50);
+    ins_end(&start1,60);
     Traversal(start1);
     cout<<endl;
-    ins_end(&start2,600);
-    ins_end(&start2,700);
-    ins_end(&start2,800);
-    ins_end(&start2,900);
-    ins_end(&start2,1000);
+     ins_end(&start2,5);
+    ins_end(&start2,15);
+    ins_end(&start2,25);
+    ins_end(&start2,35);
+    ins_end(&start2,70);
     Traversal(start2);
     cout<<endl;
-    start3=concatination(start1,start2);
+
+    start3=merge(start1,start2);
     Traversal(start3);
+
+
+    
+
 }
 
 
